@@ -46,7 +46,7 @@
 ################################## Tina.G ##################################
 
 # Technique 1, without dynamic programming 
-# cons: Time Limit Exceeded on Leetcode
+# cons: Time Limit Exceeded on Leetcode (aka. 2^n subsequences for a sequence of n which is exponential and big!)
 
 class Solution(object):
     def countStableSubsequences(self, nums):
@@ -85,6 +85,41 @@ class Solution(object):
 
 ################################## Tina.G ##################################
 # Technique 2, using dynamic programming 
+
+class Solution(object):
+    def countStableSubsequences(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        MOD = 10**9 + 7
+
+        dp_even = [0, 0, 0] # we don't need index 0. need only 1, & 2. 0 so it's more intuitive
+        dp_odd = [0, 0, 0] 
+
+        for x in nums: 
+            px = x % 2 # parity of x
+            new_dp_even = dp_even[:]
+            new_dp_odd = dp_odd[:] 
+
+            if px == 0: # even 
+                # start new subsequence with x
+                new_dp_even[1] = (new_dp_even[1] + 1) % MOD
+
+                # extend subsequences
+                new_dp_even[1] = (new_dp_even[1] + dp_odd[1] + dp_odd[2]) % MOD # switch parity
+                new_dp_even[2] = (new_dp_even[2] + dp_even[1]) % MOD # extend streak
+                
+            else: # odd
+                new_dp_odd[1] = (new_dp_odd[1] + 1) % MOD 
+                new_dp_odd[1] = (new_dp_odd[1] + dp_even[1] + dp_even[2]) % MOD
+                new_dp_odd[2] = (new_dp_odd[2] + dp_odd[1]) % MOD
+
+            dp_even = new_dp_even[:] # updating 
+            dp_odd = new_dp_odd[:]
+
+        return (sum(dp_even) + sum(dp_odd)) % MOD
+                
 
 
 
