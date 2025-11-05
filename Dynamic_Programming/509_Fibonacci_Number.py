@@ -25,7 +25,7 @@ print('\n Counter (aka. number of funtion-calls): ', counterrr)
 # Therefore, DP almost always uses 'Memoization' when using recursion to make the program efficient! 
 # complexity = o(n^2)
 #################################################################
-# same as above, but with Memoization:
+# same as above, but with Memoization (aka. top-down approach):
 
 counterr = 0 
 memo = [None] * 100
@@ -56,7 +56,7 @@ print('\n Counter (aka. number of funtion-calls): ', counterr)
 # Lesson learned: if we are goona do dynamic programming recursively, we need memoization, or it will be veryyy inefficient. 
 #################################################################
 # The approach in above was 'top-bottom'. 
-# same as above with memoization, but 'bottom-up': 
+# same as above with memoization, but 'bottom-up' (aka. Tabulation): 
 
 counter = 0 
 
